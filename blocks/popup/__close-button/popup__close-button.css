@@ -1,0 +1,17 @@
+.popup__close-button{
+  width: 56.56px;
+  height: 56.56px;
+  margin:auto 0 0 auto;
+  position: relative;
+  top:8.28px;
+}
+.popup__close-button:hover{
+  opacity: 0.6;
+}
+@media screen and (min-width: 320px) and (max-width:681px) {
+  .popup__close-button{
+    width: 36.77px;
+    height: 36.77px;
+    margin:auto 0 13.62px auto;
+  }
+}
