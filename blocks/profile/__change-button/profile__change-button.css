@@ -3,6 +3,11 @@
   width: 24px;
   height: 24px;
   margin-top: 15px;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
 }
 .profile__change-button:hover{
   opacity: 0.6;
