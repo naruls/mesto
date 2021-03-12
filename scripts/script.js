@@ -98,7 +98,7 @@ cardElement.querySelector('.element__delete-button').addEventListener('click', f
 })
 
 cardElement.querySelector('.element__image').addEventListener('click', function (eventOpenImage) {
-  container.querySelector('.popup__main').classList.add('popup_active');
+  container.querySelector('.popup_main').classList.add('popup_active');
   container.querySelector('.popup__card').src = `${eventOpenImage.target.style.backgroundImage.slice(5, -2)}`;
   container.querySelector('.popup__name').textContent = cardElement.querySelector('.element__name').textContent;
 })
@@ -124,7 +124,7 @@ cardElement.querySelector('.element__delete-button').addEventListener('click', f
 })
 
 cardElement.querySelector('.element__image').addEventListener('click', function (eventOpenImage) {
-  container.querySelector('.popup__main').classList.add('popup_active');
+  container.querySelector('.popup_main').classList.add('popup_active');
   container.querySelector('.popup__card').src = `${eventOpenImage.target.style.backgroundImage.slice(5, -2)}`;
   container.querySelector('.popup__name').textContent = cardElement.querySelector('.element__name').textContent;
 })
@@ -144,7 +144,7 @@ saveCardButton.addEventListener('click', function (eventCard) {
 });
 
 function popupMainHidde() {
-container.querySelector('.popup__main').classList.remove('popup_active');
+container.querySelector('.popup_main').classList.remove('popup_active');
 }
 
 closeButtonMain.addEventListener('click', popupMainHidde); 
