@@ -2,6 +2,7 @@
   max-width: 526.56px;
   height: 426.56px;
   position: fixed;
+  z-index: 2;
   left:0;
   right:0;
   bottom: 0;
