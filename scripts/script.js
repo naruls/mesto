@@ -10,7 +10,7 @@ const name = container.querySelector('.popup__input_user_name');
 const description = container.querySelector('.popup__input_user_description');
 const addButton = container.querySelector('.profile__add-button');
 const popupAdd = container.querySelector('.popup_add');
-const saveCardButton = container.querySelector('.popup__save-card-button');
+const saveCardButton = container.querySelector('.popup__card-form');
 const elements = container.querySelector('.elements');
 const closeButtonMain = container.querySelector('.popup__close-button_main');
 const cardTemplate = document.querySelector('#card-template').content;
@@ -20,6 +20,10 @@ const popupMain = document.querySelector('.popup_main');
 const popupCard = container.querySelector('.popup__card')
 const popupImageName = container.querySelector('.popup__name');
 const cardElementValue = cardTemplate.querySelector('.element');
+const overlayProfile = container.querySelector('.popup__background');
+const overlayCard = container.querySelector('.popup__background_add');
+const overlayImage = container.querySelector('.popup__background_main');
+const buttonCard = container.querySelector('.popup__save-card-button');
 
 function shiowPopupProfile() {
 name.value= profileName.textContent;
@@ -40,6 +44,8 @@ function createCard(nameCard, linkCard){
 const cardElement = cardElementValue.cloneNode(true);
 const cardImage = cardElement.querySelector('.element__image');
 const cardName = cardElement.querySelector('.element__name');
+buttonCard.classList.add('popup__save-button_nonactive');
+buttonCard.setAttribute('disabled', true);
 
 cardImage.style.backgroundImage = `url('${linkCard}')`;
 cardName.textContent = nameCard; 
@@ -107,10 +113,94 @@ closePopup(popupMain);
 }); 
 
 
-saveCardButton.addEventListener('click', (eventCard) => {
-  eventCard.preventDefault();
+saveCardButton.addEventListener('submit', (evt) =>{
+  evt.preventDefault();
   renderCard(createCard(popupMestoName.value, popupMestoLink.value), elements);
   closePopup(popupAdd);
   popupMestoName.value = "";
   popupMestoLink.value = "";
 });
+
+overlayProfile.addEventListener('click', (evt) =>{
+closePopup(popup);
+}); 
+
+overlayCard.addEventListener('click', (evt) =>{
+closePopup(popupAdd);
+}); 
+
+overlayImage.addEventListener('click', (evt) =>{
+closePopup(popupMain);
+}); 
+
+document.addEventListener('keydown', function (evt) {
+  if (evt.key === 'Escape') {
+    closePopup(popupMain);
+    closePopup(popupAdd);
+    closePopup(popup);
+  }
+});
+
+
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement  = formElement .querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.add(enableValidation.inputErrorClass);
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(enableValidation.errorClass);
+};
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  })
+}; 
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add(enableValidation.disabledButtonClass);
+    buttonElement.setAttribute('disabled', true);
+  } else {
+    buttonElement.classList.remove(enableValidation.disabledButtonClass);
+    buttonElement.removeAttribute('disabled', true);
+  }
+}; 
+
+const hideInputError = (formElement, inputElement) => {
+  const errorElement  = formElement .querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.remove(enableValidation.inputErrorClass);
+  errorElement.classList.remove(enableValidation.errorClass);
+  errorElement.textContent = "";
+};
+
+
+const isValid = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll(enableValidation.inputSelector));
+  const buttonElement = formElement.querySelector(enableValidation.buttonSelector);
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement)
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+}; 
+
+const enableValid = () => {
+  const formList = Array.from(document.querySelectorAll(enableValidation.formSelector));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    setEventListeners(formElement);
+  });
+};
+
+enableValid(); 
