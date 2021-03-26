@@ -1,7 +1,5 @@
 const container = document.querySelector('.container');
 const changeButton = container.querySelector('.profile__change-button');
-const resetButton = container.querySelector('.popup__close-button-change');
-const resetButtonAdd = container.querySelector('.popup__close-button-add');
 const saveButton = container.querySelector('.popup__form');
 const popup = container.querySelector('.popup');
 const profileName = container.querySelector('.profile__name');
@@ -20,9 +18,6 @@ const popupMain = document.querySelector('.popup_main');
 const popupCard = container.querySelector('.popup__card')
 const popupImageName = container.querySelector('.popup__name');
 const cardElementValue = cardTemplate.querySelector('.element');
-const overlayProfile = container.querySelector('.popup__background');
-const overlayCard = container.querySelector('.popup__background_add');
-const overlayImage = container.querySelector('.popup__background_main');
 const buttonCard = container.querySelector('.popup__save-card-button');
 
 function shiowPopupProfile() {
@@ -59,9 +54,9 @@ cardElement.querySelector('.element__delete-button').addEventListener('click', (
 })
 
 cardImage.addEventListener('click', function (eventOpenImage) {
-  popupCard.src = `${eventOpenImage.target.style.backgroundImage.slice(5, -2)}`;
-  popupCard.alt = `На фото изображён ${cardName.textContent}`;
-  popupImageName.textContent = cardName.textContent;
+  popupCard.src = linkCard;
+  popupCard.alt = `На фото изображён ${nameCard}`;
+  popupImageName.textContent = nameCard;
   openPopup(popupMain);
 });
 return cardElement;
@@ -89,17 +84,11 @@ function closePopup(popup) {
 
 function escapeButton(evt) {
   if (evt.key === 'Escape') {
-    closePopup(popupMain);
-    closePopup(popupAdd);
-    closePopup(popup);
+    closePopup(document.querySelector('.popup_active'));
   }}
 
 changeButton.addEventListener('click', shiowPopupProfile); 
 
-
-resetButton.addEventListener('click', (evt) =>{
-closePopup(popup);
-}); 
 
 saveButton.addEventListener('submit', savePopup); 
 
@@ -109,17 +98,9 @@ openPopup(popupAdd);
 }); 
 
 
-resetButtonAdd.addEventListener('click', (evt) =>{
-closePopup(popupAdd);
-}); 
-
-initialCards.forEach((item, i)=>{
-renderCard(createCard(initialCards[i].name, initialCards[i].link), elements);
+initialCards.forEach((item)=>{
+renderCard(createCard(item.name, item.link), elements);
 });
-
-closeButtonMain.addEventListener('click', (evt) =>{
-closePopup(popupMain);
-}); 
 
 
 saveCardButton.addEventListener('submit', (evt) =>{
@@ -130,14 +111,17 @@ saveCardButton.addEventListener('submit', (evt) =>{
   popupMestoLink.value = "";
 });
 
-overlayProfile.addEventListener('click', (evt) =>{
-closePopup(popup);
-}); 
 
-overlayCard.addEventListener('click', (evt) =>{
-closePopup(popupAdd);
-}); 
+ const popups = document.querySelectorAll('.popup')
 
-overlayImage.addEventListener('click', (evt) =>{
-closePopup(popupMain);
-}); 
+      popups.forEach((popup) => {
+          popup.addEventListener('click', (evt) => {
+              if (evt.target.classList.contains('popup__background')) {
+                  closePopup(popup)
+              }
+              if (evt.target.classList.contains('popup__close-image')) {
+                closePopup(popup)
+              }
+          })
+      })
+ 
