@@ -34,44 +34,6 @@ profileDescription.textContent=`${description.value}`;
 closePopup(popup);
 }
 
-
-function createCard(nameCard, linkCard){
-const cardElement = cardElementValue.cloneNode(true);
-const cardImage = cardElement.querySelector('.element__image');
-const cardName = cardElement.querySelector('.element__name');
-buttonCard.classList.add('popup__save-button_nonactive');
-buttonCard.setAttribute('disabled', true);
-
-cardImage.style.backgroundImage = `url('${linkCard}')`;
-cardName.textContent = nameCard; 
-
-
-cardElement.querySelector('.element__like-button').addEventListener('click', handleLikeIcon);
-
-cardElement.querySelector('.element__delete-button').addEventListener('click', (evt) => {
-  const deleteElement = cardElement.closest('.element');
-  deleteElement.remove();
-})
-
-cardImage.addEventListener('click', function (eventOpenImage) {
-  popupCard.src = linkCard;
-  popupCard.alt = `На фото изображён ${nameCard}`;
-  popupImageName.textContent = nameCard;
-  openPopup(popupMain);
-});
-return cardElement;
-}
-
-
-function renderCard(data, wrap){
-  wrap.prepend(data);
-}
-
-
-function handleLikeIcon(likeEvent) {
-  likeEvent.target.classList.toggle('element__like-button_active');
-};
-
 function openPopup(popup) {
   popup.classList.add('popup_active');
   document.addEventListener('keydown', escapeButton);
@@ -98,14 +60,14 @@ openPopup(popupAdd);
 }); 
 
 
-initialCards.forEach((item)=>{
-renderCard(createCard(item.name, item.link), elements);
-});
-
-
 saveCardButton.addEventListener('submit', (evt) =>{
   evt.preventDefault();
-  renderCard(createCard(popupMestoName.value, popupMestoLink.value), elements);
+    const card = new Card({
+    name: `${popupMestoName.value}`,
+    link: `${popupMestoLink.value}`
+  }, '#card-template');
+  const fasd = card.createCard();
+  document.querySelector('.elements').prepend(fasd);
   closePopup(popupAdd);
   popupMestoName.value = "";
   popupMestoLink.value = "";
@@ -124,4 +86,11 @@ saveCardButton.addEventListener('submit', (evt) =>{
               }
           })
       })
- 
+
+import {Card} from './Card.js';
+
+ initialCards.forEach((item) => {
+    const card = new Card(item, '#card-template');
+    const fasd = card.createCard();
+    document.querySelector('.elements').prepend(fasd);
+});
