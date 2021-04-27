@@ -1,8 +1,10 @@
 export class Card {
-  constructor(data, selector) {
+  constructor(data, selector, {handleCardClick}) {
+    this._data = data;
     this._selector = selector;
     this._name = data.name;;
     this._link = data.link;
+    this._handleCardClick = handleCardClick;
   }
     _getTemplateElement() {
     const cardElement = document.querySelector(this._selector).content.querySelector('.element').cloneNode(true);
@@ -10,10 +12,9 @@ export class Card {
   }
   createCard(){
     this._element = this._getTemplateElement();
-    
+    this._setEventListeners();
     this._processingLikeIconEvent();
     this._processingDeleteCardEvent();
-    this._showImagePopupEvent();
     this._element.querySelector('.element__name').textContent = this._name;
     this._element.querySelector('.element__image').style.backgroundImage = `url('${this._link}')`;
     return this._element;
@@ -34,22 +35,11 @@ export class Card {
       this._processingDeleteCard();
     });
   }
-  _showImagePopup() {
-    const popupCardDescription = document.querySelector('.popup__name');
-    const popupCardMain = document.querySelector('.popup__card');
-    const popupCardOpen = document.querySelector('.popup_main');
-    function openPopup () {
-      popupCardOpen.classList.add('popup_active');
-    }
-    openPopup()
-    popupCardMain.src = this._link;
-    popupCardMain.alt = `На фото изображён ${this._name}`;
-    popupCardDescription.textContent = this._name;
-  }
-  _showImagePopupEvent() {
-    this._element.querySelector('.element__image').addEventListener('click', () => {
-      this._showImagePopup()
-      console.log('gjd')
-    })
-  }
+
+  _setEventListeners() {
+    this._image = this._element.querySelector('.element__image');
+    this._image.addEventListener('click', () => {
+      this._handleCardClick(this._data);
+  })
+}
 }
