@@ -1,23 +1,24 @@
-export class popupClass {
-  constructor(popupSelector) {
-    this._element = popupSelector;
+export class Popup {
+  constructor(popupElement) {
+    this._element = popupElement;
     this._handleEscClose = this._handleEscClose.bind(this);
     this._handleClickOverlayClose = this._handleClickClose.bind(this);
   }
 
   open() {
     this._element.classList.add('popup_active');
+    document.addEventListener('keydown', this._handleEscClose);
   }
 
   close() {
     this._element.classList.remove('popup_active');
+    document.removeEventListener('keydown', this._handleEscClose);
   }
 
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
       this.close();
     }
-      console.log('asfas')
   }
 
   _handleClickClose(evt) {
@@ -26,8 +27,6 @@ export class popupClass {
     }
   }
   setEventListeners() {
-    console.log('gjkex')
-    document.addEventListener('keydown', this._handleEscClose);
     this._element.addEventListener('click', this._handleClickOverlayClose);
   }
 }

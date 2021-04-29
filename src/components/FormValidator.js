@@ -1,5 +1,5 @@
 
-class FormValidator {
+export class FormValidator {
   constructor(enableObject, formElement) {
     this._inputSelector = enableObject.inputSelector;
     this._buttonSelector = enableObject.buttonSelector;
@@ -60,7 +60,6 @@ _setEventListeners (formElement, data)  {
 }; 
 
 enableValidation () {
-
     this._formElement.addEventListener('submit', (evt) => {
       evt.preventDefault();
     });
@@ -68,22 +67,3 @@ enableValidation () {
 }
 }
 
-const firstForm   = document.querySelector('.form');
-const firstFr  = new FormValidator({
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__submit',
-  disabledButtonClass: 'popup__save-button_nonactive',
-  inputErrorClass: 'popup__input_errore',
-  errorClass: 'popup__input-error_active'
-}, firstForm );
-firstFr.enableValidation()
-
-const secondForm   = document.querySelector('.popup__card-form');
-const secondFr  = new FormValidator({
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__submit',
-  disabledButtonClass: 'popup__save-button_nonactive',
-  inputErrorClass: 'popup__input_errore',
-  errorClass: 'popup__input-error_active'
-}, secondForm );
-secondFr.enableValidation()
