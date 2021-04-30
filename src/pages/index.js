@@ -34,6 +34,14 @@ const cardTemplateId = '#card-template';
 const userInfo = new UserInfo( profileName, profileDescription );
 const popupImage = new PopupWithImage(popupMain);
 
+const validationConfig = {
+  inputSelector: '.popup__input',
+  buttonSelector: '.popup__submit',
+  disabledButtonClass: 'popup__save-button_nonactive',
+  inputErrorClass: 'popup__input_errore',
+  errorClass: 'popup__input-error_active'
+}
+
 const popupEditProfile = new PopupWithForm(popup, {
   submit: (data) => {
   userInfo.setUserInfo(name.value, description.value);
@@ -67,6 +75,7 @@ changeButton.addEventListener('click', () => {
   name.value = user.name;
   description.value = user.description;
   popupEditProfile.open();
+  validatorEditProfile.enableValidation();
 })
 
 popupEditProfile.setEventListeners();
@@ -76,7 +85,7 @@ const popupAddCard = new PopupWithForm(popupAdd, {
       const card = createCard({name: `${popupMestoName.value}`, 
     link: `${popupMestoLink.value}`});
       const cardElement = card.createCard();
-      document.querySelector('.elements').prepend(cardElement);
+      elements.prepend(cardElement);
       popupAddCard.close();
 
   }
@@ -84,26 +93,13 @@ const popupAddCard = new PopupWithForm(popupAdd, {
 
 addButton.addEventListener('click', () => {
   popupAddCard.open();
+  validatorAddCard.enableValidation()
 });
 
 popupAddCard.setEventListeners();
 
 const formEditProfile   = document.querySelector('.form');
-const validatorEditProfile = new FormValidator({
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__submit',
-  disabledButtonClass: 'popup__save-button_nonactive',
-  inputErrorClass: 'popup__input_errore',
-  errorClass: 'popup__input-error_active'
-}, formEditProfile );
-validatorEditProfile.enableValidation()
+const validatorEditProfile = new FormValidator(validationConfig, formEditProfile );
 
 const formAddCard   = document.querySelector('.popup__card-form');
-const validatorAddCard = new FormValidator({
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__submit',
-  disabledButtonClass: 'popup__save-button_nonactive',
-  inputErrorClass: 'popup__input_errore',
-  errorClass: 'popup__input-error_active'
-}, formAddCard );
-validatorAddCard.enableValidation()
+const validatorAddCard = new FormValidator(validationConfig, formAddCard );

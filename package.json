@@ -7,16 +7,7 @@
     "build": "webpack --mode production",
     "dev": "webpack serve"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/naruls/mesto.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/naruls/mesto/issues"
-  },
-  "homepage": "https://github.com/naruls/mesto#readme",
+  "homepage": "",
   "dependencies": {
     "core-js": "^3.11.0",
     "jquery": "^3.6.0"

@@ -15,8 +15,8 @@ export class Card {
     this._element = this._getTemplateElement();
     this._setEventListeners();
     this._element.querySelector('.element__name').textContent = this._name;
-    this._element.querySelector('.element__image').style.backgroundImage = `url('${this._link}')`;
-    this._element.querySelector('.element__image').alt = `На фото изображён ${this._name}`;
+    this._image.style.backgroundImage = `url('${this._link}')`;
+    this._image.alt = `На фото изображён ${this._name}`;
     return this._element;
   }
   _likeCard(){
