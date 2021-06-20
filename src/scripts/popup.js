@@ -17,7 +17,6 @@ export class popupClass {
     if (evt.key === 'Escape') {
       this.close();
     }
-      console.log('asfas')
   }
 
   _handleClickClose(evt) {
@@ -26,7 +25,6 @@ export class popupClass {
     }
   }
   setEventListeners() {
-    console.log('gjkex')
     document.addEventListener('keydown', this._handleEscClose);
     this._element.addEventListener('click', this._handleClickOverlayClose);
   }

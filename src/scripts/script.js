@@ -61,7 +61,18 @@ const cardsList = new Section({
 console.log(cardsList)
 cardsList.renderCard();
 
+const firstForm   = document.querySelector('.form');
+const firstFr  = new FormValidator({
+  inputSelector: '.popup__input',
+  buttonSelector: '.popup__submit',
+  disabledButtonClass: 'popup__save-button_nonactive',
+  inputErrorClass: 'popup__input_errore',
+  errorClass: 'popup__input-error_active'
+}, firstForm );
+firstFr.enableValidation()
+
 changeButton.addEventListener('click', () => {
+  firstFr.clear();
   const user = userInfo.getUserInfo();
   name.value = user.name;
   description.value = user.description;
@@ -85,7 +96,18 @@ const addPopup = new PopupWithForm(popupAdd, {
   }
 });
 
+const secondForm   = document.querySelector('.popup__card-form');
+const secondFr  = new FormValidator({
+  inputSelector: '.popup__input',
+  buttonSelector: '.popup__submit',
+  disabledButtonClass: 'popup__save-button_nonactive',
+  inputErrorClass: 'popup__input_errore',
+  errorClass: 'popup__input-error_active'
+}, secondForm );
+secondFr.enableValidation()
+
 addButton.addEventListener('click', () => {
+  secondFr.clear();
   addPopup.open();
   addPopup.setEventListeners();
 })
