@@ -14,4 +14,8 @@ const presets = [
   }]
 ];
 
+<<<<<<< HEAD
 module.exports = { presets }; 
+=======
+module.exports = { presets }; 
+>>>>>>> d19fcbfbc2d9d256d5f0752682866b0deab2c4a1
