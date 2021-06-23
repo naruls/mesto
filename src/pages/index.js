@@ -1,12 +1,12 @@
-import '../pages/style.css';
-import {Section} from './Section.js';
-import {UserInfo} from './UserInfo.js';
-import {popupClass} from './popup.js';
-import {PopupWithForm} from './PopupWithForm.js';
-import {PopupWithImage} from './PopupWithImage.js';
-import {Card} from './Card.js';
-import {initialCards} from './initial-сards.js';
-import {FormValidator} from './validate.js';
+import './style.css';
+import {Section} from '../components/Section.js';
+import {UserInfo} from '../components/UserInfo.js';
+import {popupClass} from '../components/popup.js';
+import {PopupWithForm} from '../components/PopupWithForm.js';
+import {PopupWithImage} from '../components/PopupWithImage.js';
+import {Card} from '../components/Card.js';
+import {initialCards} from '../scripts/initial-сards.js';
+import {FormValidator} from '../components/validate.js';
 
 const container = document.querySelector('.container');
 const changeButton = container.querySelector('.profile__change-button');
@@ -31,7 +31,13 @@ const cardElementValue = cardTemplate.querySelector('.element');
 const buttonCard = container.querySelector('.popup__save-card-button');
 
 
-
+const validationSettings = {
+inputSelector: '.popup__input',
+  buttonSelector: '.popup__submit',
+  disabledButtonClass: 'popup__save-button_nonactive',
+  inputErrorClass: 'popup__input_errore',
+  errorClass: 'popup__input-error_active'
+}
 
 
 const userInfo = new UserInfo( profileName, profileDescription );
@@ -39,77 +45,61 @@ const image = new PopupWithImage(popupMain);
 
 const changePopup = new PopupWithForm(popup, {
   submit: (data) => {
-  userInfo.setUserInfo(name.value, description.value);
+  userInfo.setUserInfo(data);
+    console.log(data);
   changePopup.close();
   }
 });
 
-
+function instanceCard(item){
+   const card = new Card(item, '#card-template', {handleCardClick: (data) => {
+          image.open(data);
+      }});
+   return card.createCard();
+}
 const cardsList = new Section({
     items: initialCards,
     renderer: (item) => {
-      const card = new Card(item, '#card-template', {handleCardClick: (data) => {
-          image.open(data);
-          image.setEventListeners();
-      }});
-      const fasd = card.createCard();
-      document.querySelector('.elements').prepend(fasd);
+      const newCard = instanceCard(item);
+      cardsList.addItem(newCard);
     },
   },
   elements
 ); 
+image.setEventListeners();
 console.log(cardsList)
 cardsList.renderCard();
 
-const firstForm   = document.querySelector('.form');
-const firstFr  = new FormValidator({
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__submit',
-  disabledButtonClass: 'popup__save-button_nonactive',
-  inputErrorClass: 'popup__input_errore',
-  errorClass: 'popup__input-error_active'
-}, firstForm );
-firstFr.enableValidation()
+const UserinfoForm   = document.querySelector('.form');
+const validateUserinfoForm  = new FormValidator(validationSettings, UserinfoForm );
+validateUserinfoForm.enableValidation()
 
 changeButton.addEventListener('click', () => {
-  firstFr.clear();
+  validateUserinfoForm.clear();
   const user = userInfo.getUserInfo();
   name.value = user.name;
   description.value = user.description;
   changePopup.open();
-  changePopup.setEventListeners();
 })
+changePopup.setEventListeners();
 
 
 const addPopup = new PopupWithForm(popupAdd, {
   submit: (data) => {
-    const card = new Card({ 
-    name: `${popupMestoName.value}`, 
-    link: `${popupMestoLink.value}` 
-  }, '#card-template', {handleCardClick: (data) => {
-          image.open(data);
-      }});
-      const fasd = card.createCard();
-      document.querySelector('.elements').prepend(fasd);
+      const newCard = instanceCard({ name: `${popupMestoName.value}`, link: `${popupMestoLink.value}`});
+      cardsList.addItem(newCard);
       addPopup.close();
-
   }
 });
 
-const secondForm   = document.querySelector('.popup__card-form');
-const secondFr  = new FormValidator({
-  inputSelector: '.popup__input',
-  buttonSelector: '.popup__submit',
-  disabledButtonClass: 'popup__save-button_nonactive',
-  inputErrorClass: 'popup__input_errore',
-  errorClass: 'popup__input-error_active'
-}, secondForm );
-secondFr.enableValidation()
+const CardAddForm   = document.querySelector('.popup__card-form');
+const validateCardAddForm  = new FormValidator(validationSettings, CardAddForm );
+validateCardAddForm.enableValidation()
 
 addButton.addEventListener('click', () => {
-  secondFr.clear();
+  validateCardAddForm.clear();
   addPopup.open();
-  addPopup.setEventListeners();
 })
+  addPopup.setEventListeners();
 
 
