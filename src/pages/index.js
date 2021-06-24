@@ -70,7 +70,7 @@ image.setEventListeners();
 console.log(cardsList)
 cardsList.renderCard();
 
-const UserinfoForm   = document.querySelector('.form');
+const userinfoForm   = document.querySelector('.form');
 const validateUserinfoForm  = new FormValidator(validationSettings, UserinfoForm );
 validateUserinfoForm.enableValidation()
 
@@ -83,7 +83,6 @@ changeButton.addEventListener('click', () => {
 })
 changePopup.setEventListeners();
 
-
 const addPopup = new PopupWithForm(popupAdd, {
   submit: (data) => {
       const newCard = instanceCard({ name: `${popupMestoName.value}`, link: `${popupMestoLink.value}`});
@@ -92,7 +91,7 @@ const addPopup = new PopupWithForm(popupAdd, {
   }
 });
 
-const CardAddForm   = document.querySelector('.popup__card-form');
+const cardAddForm   = document.querySelector('.popup__card-form');
 const validateCardAddForm  = new FormValidator(validationSettings, CardAddForm );
 validateCardAddForm.enableValidation()
 
@@ -101,5 +100,3 @@ addButton.addEventListener('click', () => {
   addPopup.open();
 })
   addPopup.setEventListeners();
-
-
