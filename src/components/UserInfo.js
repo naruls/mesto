@@ -1,19 +1,22 @@
-export class UserInfo {
-  constructor( userName, userDescription ) {
-    this._name = userName;
-    this._description = userDescription;
-  }
+export class UserInfo { 
+  constructor(userName, userDescription, userAvatar) { 
+    this._name = userName; 
+    this._about = userDescription; 
+    this._avatar = userAvatar;
+  } 
+ 
+  getUserInfo() { 
+    const info = { 
+      name: this._name.textContent, 
+      about: this._about.textContent 
+    }; 
+    return info; 
+  } 
+ 
 
-  getUserInfo() {
-    const info = {
-      name: this._name.textContent,
-      description: this._description.textContent
-    };
-    return info;
-  }
-
-  setUserInfo({name, description}) {
-    this._name.textContent = name;
-    this._description.textContent = description;
-  }
-}
+  setUserInfo(data) { 
+    this._name.textContent = data.name; 
+    this._about.textContent = data.about; 
+    this._avatar.src = data.avatar;
+  } 
+} 

@@ -32,9 +32,9 @@
     <div class="popup__container">
       <h2 class="popup__info">Новое место</h2>
       <form name="popupCardForm" class="popup__card-form form" novalidate>
-        <input id="mesto-name" type="text" class="popup__input popup__input_mesto_name" name="mesto-name" placeholder="Название" required minlength="2" maxlength="30">
+        <input id="mesto-name" type="text" class="popup__input popup__input_mesto_name" name="mestoName" placeholder="Название" required minlength="2" maxlength="30">
         <span id="mesto-name-error" class="popup__input-error"></span> 
-        <input id="mesto-description" type="url" class="popup__input popup__input_mesto_link" name="mesto-description" placeholder="Ссылка на картинку" required>
+        <input id="mesto-description" type="url" class="popup__input popup__input_mesto_link" name="mestoDescription" placeholder="Ссылка на картинку" required>
         <span id="mesto-description-error" class="popup__input-error"></span> 
         <button class="popup__save-button popup__save-card-button popup__submit" type="submit" name="save-button">
          Сохранить
@@ -50,8 +50,35 @@
       <h2 class="popup__name"></h2>
     </div>  
   </section>
+  <section class="popup popup_confirm popup_hidden">
+    <div class="popup__background"></div>
+    <button type="button" class="popup__close-button"><img src="<%=require('./images/Close_Icon.svg')%>" class="popup__close-image" alt="кнопка"></button>
+    <div class="popup__container">
+      <h2 class="popup__info popup__info-confirm">Вы уверены?</h2>
+      <form name="popupFormConfirm" class="popup__form form" novalidate>
+      <button class="popup__save-button popup__submit" type="submit" name="save-button">
+        Да
+      </button>
+      </form>
+    </div>
+  </section>
+  <section class="popup popup_avatar popup_hidden">
+    <div class="popup__background"></div>
+    <button type="button" class="popup__close-button"><img src="<%=require('./images/Close_Icon.svg')%>" class="popup__close-image" alt="кнопка"></button>
+    <div class="popup__container">
+      <h2 class="popup__info">Обновить аватар</h2>
+      <form name="popupAvatarForm" class="popup__avatar-form form" novalidate>
+        <input id="avatar-description" type="url" class="popup__input popup__input_avatar_link" name="avatarDescription" placeholder="Ссылка на картинку" required>
+        <span id="avatar-description-error" class="popup__input-error"></span> 
+        <button class="popup__save-button popup__save-avatar-button popup__submit" type="submit" name="save-button">
+         Сохранить
+        </button>
+      </form>
+    </div>
+  </section>
   <section class="profile background">
-    <img src="<%=require('./images/Jac.jpg')%>" class="profile__avatar" alt="Жак-Ив Кусто">
+      <img src="<%=require('./images/Jac.jpg')%>" class="profile__avatar" alt="Жак-Ив Кусто">
+        <div class="profile__frontground"></div>
     <div class="profile__info">
       <div class="profile__top-info">
         <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -73,7 +100,10 @@
       <button type="button" class="element__delete-button"></button>
       <div class="element__bottom">
         <h2 class="element__name"></h2>
+        <div class="element__like-place">
         <button type="button" class="element__like-button element__like-button_deactivate"></button>
+        <p class="element__like-count"></p>
+        </div>
       </div>
     </div>
   </template>
