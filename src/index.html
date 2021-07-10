@@ -15,7 +15,7 @@
     <button type="button" class="popup__close-button popup__close-button-change"><img src="<%=require('./images/Close_Icon.svg')%>" class="popup__close-image" alt="кнопка"></button>
     <div class="popup__container">
       <h2 class="popup__info">Редактировать профиль</h2>
-      <form name="popupForm" class="popup__form form" novalidate>
+      <form name="popupForm" class="popup__form form popup__info-form" novalidate>
       <input id="profile-name" type="text" class="popup__input popup__input_user_name" name="name" required minlength="2" maxlength="40">
       <span id="profile-name-error" class="popup__input-error"></span> 
       <input id="profile-description" type="text" class="popup__input popup__input_user_description" name="description" required minlength="2" maxlength="200">

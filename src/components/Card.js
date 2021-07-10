@@ -45,7 +45,7 @@ export class Card {
     })
 }
   likeCount(data) {
-    this._element.querySelector('.element__like-count').textContent = `${this._likes.length}`;
+    this._element.querySelector('.element__like-count').textContent = `${data.likes.length}`;
   }
 
   _unlike(data) {

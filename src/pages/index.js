@@ -8,12 +8,12 @@ import {PopupWithImage} from '../components/PopupWithImage.js';
 import {PopupWithConfirm} from '../components/PopupWithConfirm.js'; 
 import {Card} from '../components/Card.js'; 
 import {initialCards} from '../scripts/initial-сards.js'; 
-import {FormValidator} from '../components/validate.js'; 
+import {FormValidator} from '../components/FormValidator.js'; 
  
 const container = document.querySelector('.container'); 
 const changeButton = container.querySelector('.profile__change-button'); 
-const saveButton = container.querySelector('.popup__form'); 
-const popup = container.querySelector('.popup'); 
+const saveButton = container.querySelector('.popup__info-form'); 
+const popup = container.querySelector('.popup_change'); 
 const profileName = container.querySelector('.profile__name'); 
 const profileDescription = container.querySelector('.profile__description');
 const profileAvatar = container.querySelector('.profile__avatar');
@@ -83,13 +83,13 @@ const changePopup = new PopupWithForm(popup, {
       api.setUserInfo(data)
       .then((res) => {
         userInfo.setUserInfo(res);
+        changePopup.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         changePopup.render(false);
-        changePopup.close();
       })
   } 
 }); 
@@ -146,13 +146,13 @@ const addPopup = new PopupWithForm(popupAdd, {
       .then((res) => {
         const card = instanceCard(res);
         cardsList.addItem(card);
+        addPopup.close()
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         addPopup.render(false);
-        addPopup.close()
       })
   } 
 }); 
@@ -163,13 +163,13 @@ const popupAvatar = new PopupWithForm(avatarPopup, {
     api.setUserAvatar(data)
       .then((res) => {
         userInfo.setUserInfo(res);
+        popupAvatar.close();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
         popupAvatar.render(false);
-        popupAvatar.close();
       })
   }
 })
@@ -193,7 +193,7 @@ const popupConfirm = new PopupWithConfirm(confirmPopup, {
 
 popupConfirm.setEventListeners(); 
 
-const userinfoForm   = document.querySelector('.form'); 
+const userinfoForm   = document.querySelector('.popup__info-form'); 
 const validateUserinfoForm  = new FormValidator(validationSettings, userinfoForm ); 
 validateUserinfoForm.enableValidation() 
 changeButton.addEventListener('click', () => { 

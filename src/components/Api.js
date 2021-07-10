@@ -26,11 +26,7 @@ export class Api {
         name: data.name,
         about: data.description
       })
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else return Promise.reject(`Ошибка ${res.status}`);
-    });
+    }).then(this._getResponseData)
   }
 
    setUserAvatar(data) {
@@ -40,11 +36,7 @@ export class Api {
       body: JSON.stringify({
         avatar: data.avatarDescription
       })
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else return Promise.reject(`Ошибка ${res.status}`);
-    });
+    }).then(this._getResponseData)
   }
 
   postCard(data) {
@@ -62,34 +54,29 @@ export class Api {
   return fetch(`${this._baseUrl}/cards/likes/${data._id}`, {
       method: 'PUT',
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else return Promise.reject(`Ошибка ${res.status}`);
-    });
+    }).then(this._getResponseData)
   }
 
   dislikeCard(data) {
   return fetch(`${this._baseUrl}/cards/likes/${data._id}`, {
       method: 'DELETE',
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else return Promise.reject(`Ошибка ${res.status}`);
-    });
+    }).then(this._getResponseData)
   }
   
   deleteCard(data) {
   return fetch(`${this._baseUrl}/cards/${data._id}`, {
       method: 'DELETE',
       headers: this._headers
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      } else return Promise.reject(`Ошибка ${res.status}`);
-    });
+    }).then(this._getResponseData)
   }
+
+  _getResponseData(res) {
+    if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+} 
 }
 
 

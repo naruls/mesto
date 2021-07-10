@@ -16,7 +16,7 @@ export class popupClass {
   }
 
   _handleEscClose(evt) {
-    if (evt.key === 'Escape') {
+    if (evt.key === escapeButton) {
       this.close();
     }
   }
@@ -30,3 +30,5 @@ export class popupClass {
     this._element.addEventListener('click', this._handleClickOverlayClose);
   }
 }
+
+const escapeButton = 'Escape'; 
