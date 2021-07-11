@@ -8,14 +8,14 @@ export class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers
-    })
+    }).then(this._getResponseData)
   }
 
   getInitialCards() {
   return fetch(`${this._baseUrl}/cards`, {
     method: 'GET',
     headers: this._headers
-  })
+  }).then(this._getResponseData)
 } 
 
   setUserInfo(data) {
@@ -47,7 +47,7 @@ export class Api {
         name: data.mestoName,
         link: data.mestoDescription
       })
-    })
+    }).then(this._getResponseData)
   }
 
   likeCard(data) {

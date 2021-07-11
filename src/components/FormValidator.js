@@ -16,14 +16,14 @@ _showInputError (inputElement, errorMessage) {
   errorElement.classList.add(this._errorClass); 
 }; 
  
-_hasInvalidInput (inputList) { 
+_hasInvalidInput () { 
   return this._inputList.some((inputElement) => { 
     return !inputElement.validity.valid; 
   }) 
 };  
  
-_toggleButtonState (inputList, buttonElement) { 
-  if (this._hasInvalidInput(this._inputList)) { 
+_toggleButtonState () { 
+  if (this._hasInvalidInput()) { 
     this._buttonElement.classList.add(this._disabledButtonClass); 
     this._buttonElement.setAttribute('disabled', true); 
   } else { 
@@ -49,7 +49,7 @@ _isValid (inputElement)  {
 }; 
  
 _setEventListeners ()  { 
-  this._toggleButtonState(this._inputList, this._buttonElement); 
+  this._toggleButtonState(); 
   this._inputList.forEach((inputElement) => { 
     inputElement.addEventListener('input', () => { 
       this._isValid(inputElement) 

@@ -31,4 +31,4 @@ export class popupClass {
   }
 }
 
-const escapeButton = 'Escape'; 
+import {escapeButton} from '../const/const.js';

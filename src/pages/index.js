@@ -13,7 +13,7 @@ import {FormValidator} from '../components/FormValidator.js';
 const container = document.querySelector('.container'); 
 const changeButton = container.querySelector('.profile__change-button'); 
 const saveButton = container.querySelector('.popup__info-form'); 
-const popup = container.querySelector('.popup_change'); 
+const profilePopup = container.querySelector('.popup_change'); 
 const profileName = container.querySelector('.profile__name'); 
 const profileDescription = container.querySelector('.profile__description');
 const profileAvatar = container.querySelector('.profile__avatar');
@@ -58,7 +58,6 @@ const image = new PopupWithImage(popupMain);
 }); 
 
 api.getUserInfo()
-  .then(res => res.json())
   .then((data)=>{
     userInfo.setUserInfo(data);
     myId = data._id;
@@ -68,7 +67,6 @@ api.getUserInfo()
   })
 
 api.getInitialCards()
-  .then(res => res.json())
   .then((data)=>{
     console.log(data)
     cardsList.renderCard(data);
@@ -77,7 +75,7 @@ api.getInitialCards()
     console.log(err);
   })
  
-const changePopup = new PopupWithForm(popup, { 
+const changePopup = new PopupWithForm(profilePopup, { 
   submit: (data) => { 
       changePopup.render(true);
       api.setUserInfo(data)
@@ -142,7 +140,6 @@ const addPopup = new PopupWithForm(popupAdd, {
   submit: (data) => { 
     addPopup.render(true);
     api.postCard(data)
-      .then(res => res.json())
       .then((res) => {
         const card = instanceCard(res);
         cardsList.addItem(card);
